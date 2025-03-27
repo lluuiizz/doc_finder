@@ -59,4 +59,29 @@ void imprime_lista (Lista *lista){
 
 }
 
+void liberar_lista (Lista *lista){
+	No *aux = lista->cabeca;
 
+	while (aux != NULL){
+		No *temp = aux;
+		aux = aux->proximo;
+		free(temp);
+
+	}
+	free(lista);
+}
+
+
+int main(){
+	Lista *lista = inicia_lista();
+
+	inserir_na_lista(lista, 10);
+	inserir_na_lista(lista, 5);
+	inserir_na_lista(lista, 6);
+
+	imprime_lista(lista);
+
+	liberar_lista(lista);
+
+
+}
