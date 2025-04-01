@@ -3,10 +3,18 @@
 
 #include <stdbool.h>
 
-typedef int Item;
+typedef char Documento[50];
+typedef char Chave[20];
+
+typedef struct {
+	Documento arquivo;
+	Chave chaves[1000];
+	int qnt_chaves;
+} Registro;
+
 
 typedef struct no {
-	Item item;
+	Registro item;
 	struct no *proximo;
 } No;
 
@@ -17,8 +25,10 @@ typedef struct {
 
 
 Lista* inicia_lista();
-void inserir_na_lista(Lista *lista, Item x);
-bool buscar_valor (Lista *lista, Item x);
+void inserir_na_lista(Lista *lista, Registro x);
+bool busca_lista (Lista *lista, Registro x);
+void liberar_lista (Lista *lista);
+void imprime_lista (Lista *lista);
 
 
 

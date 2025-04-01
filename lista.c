@@ -1,6 +1,7 @@
 #include "lista.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 Lista* inicia_lista() {
 
@@ -10,7 +11,7 @@ Lista* inicia_lista() {
 
 	return nova_lista;
 }
-void inserir_na_lista(Lista *lista, Item x){
+void inserir_na_lista(Lista *lista, Registro x){
 
 	No *novo_no = (No*) malloc(sizeof(No));
 	novo_no->item = x;
@@ -32,18 +33,37 @@ void inserir_na_lista(Lista *lista, Item x){
 	lista->tamanho++;
 
 }
-bool busca_lista (Lista *lista, Item x){
+bool busca_lista (Lista *lista, Registro x){
 
 	No *aux = lista->cabeca;
+	int correspondencias = 0;
+	bool achou_algum = false;
 
 	for (int i = 0; i < lista->tamanho; i++){
-		if (aux->item == x)
-			return true;
+		for (int j = 0; j < aux->item.qnt_chaves; j++){
+			for (int k = 0; k < x.qnt_chaves; k++){
+				if(strcmp(x.chaves[k], aux->item.chaves[j]) == 0){
+					correspondencias++;
+
+				}
+			}
+
+		}
+
+		if (correspondencias == x.qnt_chaves){
+			printf("Documento: %s | Chaves: ", aux->item.arquivo);
+			for (int z = 0; z < aux->item.qnt_chaves; z++)
+				printf("%s ", aux->item.chaves[z]);
+			achou_algum = true;
+			correspondencias = 0;
+
+		}
+		printf("\n");
 		aux = aux->proximo;
 	}
 
 	
-	return false;
+	return achou_algum;
 
 }
 
@@ -51,7 +71,7 @@ void imprime_lista (Lista *lista){
 	No *aux = lista->cabeca;
 
 	for (int i = 0; i < lista->tamanho; i++){
-		printf("%d ", aux->item);
+		printf("%s ", aux->item.arquivo);
 		aux = aux->proximo;
 	}
 	printf("\n");
@@ -72,16 +92,4 @@ void liberar_lista (Lista *lista){
 }
 
 
-int main(){
-	Lista *lista = inicia_lista();
 
-	inserir_na_lista(lista, 10);
-	inserir_na_lista(lista, 5);
-	inserir_na_lista(lista, 6);
-
-	imprime_lista(lista);
-
-	liberar_lista(lista);
-
-
-}
