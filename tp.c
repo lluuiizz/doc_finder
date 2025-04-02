@@ -9,8 +9,8 @@ int main(void){
 	insere_documento(indice, (Registro){"prog.doc", {"algoritmo", "selecao"}, 2});
 	insere_documento(indice, (Registro){"aeds1.doc", {"algoritmo", "estrutura", "dados"}, 3});
 	insere_documento(indice, (Registro){"darwin.doc", {"selecao", "natural"}, 2});
-	consulta(indice, (Registro){"", {"selecao", "natural"}, 2});
 
+	imprime(indice);
 	libera_indice(indice);
 
 }
