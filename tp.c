@@ -71,5 +71,8 @@ int main(void){
 
 	}
 
+	libera_indice(indice);
+	free(arquivos);
+
 
 }

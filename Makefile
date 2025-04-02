@@ -15,6 +15,6 @@ lista.o: lista.c
 run:
 	@./exe
 val:
-	@gcc -g -o exeval hash.c indiceInvertido.c tp.c -Wall
+	@gcc -g -o exeval merge_sort.c lista.c hash.c indice_invertido.c tp.c -Wall
 valrun: val
 	@valgrind --leak-check=full --track-origins=yes -s ./exeval
