@@ -28,35 +28,38 @@ void libera_indice(IndiceInvertido *indice){
 void insere_documento(IndiceInvertido *indice, Registro reg){
 	int nao_correspondencias = 0;
 	for (int i = 0; i < reg.qnt_chaves; i++){
-		inserir_na_lista(indice->listas[busca(indice, reg.chaves[i])], reg);
+		int indice_para_chave = busca(indice, reg.chaves[i]);
+		strncpy(indice->chaves_ja_inseridas[indice_para_chave], reg.chaves[i], strlen(reg.chaves[i]));
 
-		if (indice->qnt_chaves_diferentes == 0){
-			strncpy(indice->chaves_ja_inseridas[indice->qnt_chaves_diferentes++], reg.chaves[i], strlen(reg.chaves[i]));
-		}
-		else {
-			for (int j = 0; j < indice->qnt_chaves_diferentes; j++){
-				printf("%s x %s\n", indice->chaves_ja_inseridas[j], reg.chaves[i]);
-				if (strcmp(reg.chaves[i], indice->chaves_ja_inseridas[j]) != 0)
-					nao_correspondencias++;
 
-			}
-			if (nao_correspondencias == indice->qnt_chaves_diferentes){
-				strncpy(indice->chaves_ja_inseridas[indice->qnt_chaves_diferentes++], reg.chaves[i], strlen(reg.chaves[i]));
-				nao_correspondencias = 0;
-			}
+		inserir_na_lista(indice->listas[indice_para_chave], reg);
 
-		}
 	}
 }
 int busca (IndiceInvertido *indice, Chave chave){
 
 	int indice_da_lista = h(chave, indice->capacidade);
+
+	if (strcmp(indice->chaves_ja_inseridas[h(chave, indice->capacidade)], chave) != 0){
+		bool encontrou = false;
+		do {
+			indice_da_lista = (indice_da_lista+1) % indice->capacidade;
+			encontrou = strcmp(indice->chaves_ja_inseridas[indice_da_lista], chave) != 0 ? false : true;
+
+
+		} while (!encontrou  && indice->listas[indice_da_lista]->tamanho != 0);
+
+		if (!encontrou)
+			indice->qnt_chaves_diferentes++;
+
+	}
 	return indice_da_lista;
 
 }
 void consulta (IndiceInvertido* indice, Registro chaves){
 
 	int indice_lista = busca(indice, chaves.chaves[0]);
+	printf("Indice para consulta: %d\n", indice_lista);
 
 	busca_lista(indice->listas[indice_lista], chaves);
 
