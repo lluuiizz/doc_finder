@@ -59,19 +59,28 @@ int busca (IndiceInvertido *indice, Chave chave){
 void consulta (IndiceInvertido* indice, Registro chaves){
 
 	int indice_lista = busca(indice, chaves.chaves[0]);
-	printf("Indice para consulta: %d\n", indice_lista);
 
 	busca_lista(indice->listas[indice_lista], chaves);
 
 }
 void imprime(IndiceInvertido* indice){
 
-	for (int i = 0;  i < indice->qnt_chaves_diferentes; i++){
-		int indice_da_lista = busca(indice, indice->chaves_ja_inseridas[i]);
-		printf("%s - ", indice->chaves_ja_inseridas[i]);
-		imprime_lista(indice->listas[indice_da_lista]);
+	No *aux;	
+	for (int i = 0;  i < indice->capacidade; i++){
+		if (strlen(indice->chaves_ja_inseridas[i]) != 0){
+			int indice_da_lista = busca(indice, indice->chaves_ja_inseridas[i]);
+			printf("%s - ", indice->chaves_ja_inseridas[i]);
+			aux = indice->listas[indice_da_lista]->cabeca;
 
+			for (int j = 0; j < indice->listas[indice_da_lista]->tamanho; j++){
+				printf("%s ", aux->item.arquivo);
+				aux = aux->proximo;
+			}
+			printf("\n");
+
+		}
 	}
+	aux = NULL;
 }
 
 
