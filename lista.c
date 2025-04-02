@@ -49,8 +49,8 @@ bool busca_lista (Lista *lista, Registro x){
 			}
 
 		}
-
 		if (correspondencias == x.qnt_chaves){
+			printf("Correspondencias: %d\n\n", correspondencias);
 			printf("Documento: %s | Chaves: ", aux->item.arquivo);
 			for (int z = 0; z < aux->item.qnt_chaves; z++)
 				printf("%s ", aux->item.chaves[z]);
