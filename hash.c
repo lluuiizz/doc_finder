@@ -1,4 +1,4 @@
-#include "hash.h"
+#include "include/hash.h"
 
 
 int h (Chave chave, int m){

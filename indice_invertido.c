@@ -1,5 +1,5 @@
-#include "indice_invertido.h"
-#include "hash.h"
+#include "include/indice_invertido.h"
+#include "include/hash.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -26,7 +26,6 @@ void libera_indice(IndiceInvertido *indice){
 
 
 void insere_documento(IndiceInvertido *indice, Registro reg){
-	int nao_correspondencias = 0;
 	for (int i = 0; i < reg.qnt_chaves; i++){
 		int indice_para_chave = busca(indice, reg.chaves[i]);
 		strncpy(indice->chaves_ja_inseridas[indice_para_chave], reg.chaves[i], strlen(reg.chaves[i]));

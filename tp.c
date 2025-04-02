@@ -1,5 +1,5 @@
-#include "indice_invertido.h"
-#include "lista.h"
+#include "include/indice_invertido.h"
+#include "include/lista.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,7 +35,7 @@ int main(void){
 	}
 
 
-	IndiceInvertido *indice = aloca_indice(10);
+	IndiceInvertido *indice = aloca_indice(99);
 	for (int i = 0; i < n_documentos; i++)
 		insere_documento(indice, arquivos[i]);
 

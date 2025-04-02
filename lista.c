@@ -1,4 +1,5 @@
-#include "lista.h"
+#include "include/lista.h"
+#include "include/merge_sort.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -39,6 +40,9 @@ bool busca_lista (Lista *lista, Registro x){
 	int correspondencias = 0;
 	bool achou_algum = false;
 
+	merge_sort(&aux);
+
+
 	for (int i = 0; i < lista->tamanho; i++){
 		for (int j = 0; j < aux->item.qnt_chaves; j++){
 			for (int k = 0; k < x.qnt_chaves; k++){
@@ -51,10 +55,13 @@ bool busca_lista (Lista *lista, Registro x){
 		}
 		if (correspondencias == x.qnt_chaves){
 			printf("%s\n", aux->item.arquivo);
+			achou_algum = true;
 		}
 		aux = aux->proximo;
 		correspondencias = 0;
 	}
+	if (!achou_algum)
+		printf("none\n");
 
 	
 	return achou_algum;
