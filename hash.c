@@ -13,5 +13,4 @@ int h (Chave chave, int m){
         soma += (unsigned int) chave [i] * p[i % tamP];
     return soma % m;
 
-
 }
